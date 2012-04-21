@@ -18,7 +18,7 @@ class Malam_Doctrine
             throw new Kohana_Exception(__('PDO needs to be installed with MySQL support'));
         }
 
-        require Kohana::find_file('vendor', 'doctrine/lib/Doctrine/Doctrine');
+        require Kohana::find_file('vendor', 'doctrine/lib/Doctrine');
         spl_autoload_register(array('Doctrine', 'autoload'));
 
         $config   = Kohana::$config->load('migrations');
