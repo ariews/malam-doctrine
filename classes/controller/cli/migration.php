@@ -27,6 +27,6 @@ class Controller_Cli_Migration extends Controller
 
     public function action_reset()
     {
-        return Malam_Doctrine::reset();
+        echo Malam_Doctrine::reset();
     }
 }
