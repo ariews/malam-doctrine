@@ -29,10 +29,14 @@ class Malam_Doctrine_Core
             define('KTPREFIX', $database['table_prefix']);
 
         $manager = Doctrine_Manager::getInstance();
-        
-        if (isset($database['dsn']))
+
+        if (isset($database['connection']['dsn']))
         {
-            $manager->openConnection($database['dsn']);
+            $p = parse_url($database['connection']['dsn']);
+
+            $dsn = "{$p['scheme']}:///{$p['path']}";
+
+            $manager->openConnection($dsn);
         }
         else
         {
@@ -44,7 +48,7 @@ class Malam_Doctrine_Core
                 $database['connection']['database']
             );
         }
-        
+
         $manager->setAttribute(Doctrine_Core::ATTR_TBLNAME_FORMAT, "{$database['table_prefix']}_%s");
         $manager->setAttribute(Doctrine_Core::ATTR_IDXNAME_FORMAT, "{$database['table_prefix']}%s");
 
