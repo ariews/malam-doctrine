@@ -6,10 +6,10 @@ defined('SYSPATH') or die('No direct script access.');
  * @author  arie
  */
 
-class Malam_Doctrine_Core
+abstract class Malam_Doctrine_Core
 {
-    private static $_migration;
-    private static $_config;
+    protected static $_migration;
+    protected static $_config;
 
     public static function initialize()
     {
@@ -102,7 +102,7 @@ class Malam_Doctrine_Core
         ));
     }
 
-    private static function do_migrate($version)
+    protected static function do_migrate($version)
     {
         $current = self::$_migration->getCurrentVersion();
 
