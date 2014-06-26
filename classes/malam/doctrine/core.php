@@ -32,16 +32,18 @@ abstract class Malam_Doctrine_Core
 
         if (isset($database['connection']['dsn']))
         {
-            $p = parse_url($database['connection']['dsn']);
+            $pdo = new PDO($database['connection']['dsn'],
+                           $database['connection']['username'],
+                           $database['connection']['password']);
 
-            $dsn = "{$p['scheme']}:///{$p['path']}";
-
-            $manager->openConnection($dsn);
+            $manager->openConnection($pdo);
         }
         else
         {
+            $type = preg_match('/mysqli?/i', $database['type']) ? 'mysql' : $database['type'];
+
             $manager->openConnection(
-                $database['type'].'://'.
+                $type.'://'.
                 $database['connection']['username'].':'.
                 $database['connection']['password'].'@'.
                 $database['connection']['hostname'].'/'.
